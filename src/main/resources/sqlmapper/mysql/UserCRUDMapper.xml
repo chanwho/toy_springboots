@@ -7,4 +7,50 @@
         SELECT * 
         FROM USERDATA
     </select>
+
+    <!-- call UserCRUD.selectOneFromUSERDATA -->
+    <select id="selectOneFromUSERDATA" parameterType="Map" resultType="Map">
+        SELECT * 
+        FROM USERDATA
+        WHERE USER_UID = #{USER_UID}
+    </select>
+
+    <!-- call UserCRUD.updateByUSER_UID -->
+    <update id="updateByUSER_UID" parameterType="Map">
+        update userdata
+        set NAME = #{NAME}, ID = #{ID}, PASSWORD = #{PASSWORD}, PHONE_NUMBER = #{PHONE_NUMBER}, BIRTHDAY = #{BIRTHDAY}, EMAIL = #{EMAIL}, SMS_AD = #{SMS_AD}, EMAIL_AD = #{EMAIL_AD}
+        where USER_UID = #{USER_UID}
+    </update>
+
+    <!-- call UserCRUD.deleteByUSER_UID -->
+    <delete id="deleteByUSER_UID" parameterType="Map">
+        DELETE FROM userdata 
+        WHERE USER_UID = #{USER_UID}
+    </delete>
+
+
+    <!-- call UserCRUD.createUSERDATA -->
+    <insert id="createUSERDATA" parameterType ="Map">
+        insert into userdata (USER_UID, NAME, ID, PASSWORD, PHONE_NUMBER, BIRTHDAY, EMAIL, SMS_AD, EMAIL_AD)
+        VALUE (#{USER_UID},#{NAME},#{ID},#{PASSWORD},#{PHONE_NUMBER},#{BIRTHDAY},#{EMAIL}
+        <choose>
+        <when test="SMS_AD != null">
+            , '1'
+        </when>
+        <otherwise>
+            , '0'
+        </otherwise>
+        </choose>
+
+        <choose>
+        <when test="EMAIL_AD != null">
+            , '1'
+        </when>
+        <otherwise>
+            , '0'
+        </otherwise>
+        </choose>
+
+        )
+    </insert>
 </mapper>

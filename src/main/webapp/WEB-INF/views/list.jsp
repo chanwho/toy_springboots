@@ -9,9 +9,63 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+  crossorigin="anonymous"
+/>
 </head>
 <body>
-  <div>list</div>
-  <div>${resultMap}</div>
+  <div class="container">
+    <div>list</div>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>USER_UID</th>
+          <th>NAME</th>
+          <th>ID</th>
+          <th>PASSWORD</th>
+          <th>PHONE_NUMBER</th>
+          <th>BIRTHDAY</th>
+          <th>EMAIL</th>
+          <th>SMS_AD</th>
+          <th>EMAIL_AD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${resultMap}" var="resultData" varStatus="loop">
+          <tr>
+            <td>${resultData.USER_UID}</td>
+            <td>
+              <form action="/userData/edit/${resultData.USER_UID}" method="get">
+                <button class="btn btn-link viewPopup">
+                  ${resultData.NAME}
+                </button>
+              </form>
+            </td>
+            <td>${resultData.ID}</td>
+            <td>${resultData.PASSWORD}</td>
+            <td>${resultData.PHONE_NUMBER}</td>
+            <td>${resultData.BIRTHDAY}</td>
+            <td>${resultData.EMAIL}</td>
+            <td>${resultData.SMS_AD}</td>
+            <td>${resultData.EMAIL_AD}</td>
+            <td>
+              <form
+              action="/userData/delete/${resultData.USER_UID}" method="post">
+              <button class="btn outline-info">Delete</button>
+            </form>
+            </td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    <div>
+      <form action="/userData/edit/insert" method="get">
+        <button class="btn btn-link viewPopup">Insert User</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
