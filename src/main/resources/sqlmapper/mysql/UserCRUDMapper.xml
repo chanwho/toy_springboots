@@ -53,4 +53,24 @@
 
         )
     </insert>
+
+    
+
+
+    <!-- call UserCRUD.attachInsertMulti -->
+    <insert id="attachInsertMulti" parameterType="Map">
+        insert into CIP_ATTACHFILE
+        (ATTACHFILE_SEQ, SOURCE_UNIQUE_SEQ, ORGINALFILE_NAME, PHYSICALFILE_NAME
+        , REGISTER_SEQ, REGISTRY_DATE, MODIFIER_SEQ, MODIFY_DATE)
+        values
+        <!-- ('2023.01.2612505201', 'TEMP_29', 'cast.txt', '20230126_112456'
+        ,'UUID-1111-1111111',sysdate(),'UUID-1111-1111111',sysdate()),('2023.01.2612505202', 'TEMP_29', 'cast01.txt', '20230126_112456'
+        ,'UUID-1111-1111111',sysdate(),'UUID-1111-1111111',sysdate())     -->
+        <foreach collection="attachfiles" item="attachfile"
+                open="(" close=")" separator="),(">
+            #{attachfile.ATTACHFILE_SEQ}, #{attachfile.SOURCE_UNIQUE_SEQ}, #{attachfile.ORGINALFILE_NAME}, #{attachfile.PHYSICALFILE_NAME}
+            ,#{attachfile.REGISTER_SEQ},sysdate(),#{attachfile.MODIFIER_SEQ},sysdate()
+        </foreach>
+    </insert>
+
 </mapper>

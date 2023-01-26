@@ -1,5 +1,11 @@
 package com.toy.toy_springboots.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.toy.toy_springboots.service.UserDataService;
+import com.toy.toy_springboots.utils.AddUUID;
 
 @Controller
 @RequestMapping(value = "/userData")
@@ -19,9 +28,26 @@ public class UserDataController {
     @Autowired
     UserDataService userDataService;
 
+    @Autowired
+    AddUUID addUUID;
+
     @RequestMapping(value = { "/", "", "/list" }, method = RequestMethod.GET)
     public ModelAndView list(@RequestParam Map<String, Object> params, ModelAndView modelAndView) {
         Object resultMap = userDataService.getlist(params);
+
+        modelAndView.addObject("resultMap", resultMap);
+        modelAndView.setViewName("/list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = { "/uploadMultiImg" }, method = RequestMethod.POST)
+    public ModelAndView uploadMultiImg(MultipartHttpServletRequest multipartHttpServletRequest,
+            @RequestParam Map<String, Object> params, ModelAndView modelAndView)
+            throws IllegalStateException, IOException {
+
+        Map<String, Object> utilsParams = addUUID.UploadProcess(multipartHttpServletRequest, params);
+
+        Object resultMap = userDataService.insertWithFileAndGetList(utilsParams);
 
         modelAndView.addObject("resultMap", resultMap);
         modelAndView.setViewName("/list");
@@ -61,6 +87,12 @@ public class UserDataController {
         Object resultMap = userDataService.deleteAndGetList(params);
         modelAndView.addObject("resultMap", resultMap);
         modelAndView.setViewName("/list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/formMulti")
+    public ModelAndView uploadFile(@RequestParam Map<String, Object> params, ModelAndView modelAndView) {
+        modelAndView.setViewName("/editMultiFileUpload");
         return modelAndView;
     }
 

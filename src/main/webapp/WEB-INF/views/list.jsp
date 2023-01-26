@@ -19,6 +19,11 @@
 <body>
   <div class="container">
     <div>list</div>
+    <div>
+    <form action="/userData/formMulti" method="get">
+      <button class="btn btn-info">Upload Multi Image File</button>
+    </form>
+    </div>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>

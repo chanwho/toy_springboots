@@ -58,4 +58,16 @@ public class UserDataService {
         return result;
     }
 
+    public Object insertMulti(Object dataMap) {
+        String sqlMapId = "UserCRUD.attachInsertMulti";
+        Object result = userDataDao.insert(sqlMapId, dataMap);
+        return result;
+    }
+
+    public Object insertWithFileAndGetList(Object dataMap) {
+        Object result = this.insertOne(dataMap);
+        result = this.getlist(dataMap);
+        return result;
+    }
+
 }
