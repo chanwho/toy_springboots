@@ -23,11 +23,9 @@ public class AddUUID {
     public Map UploadProcess(MultipartHttpServletRequest multipartHttpServletRequest, Map<String, Object> params)
             throws IllegalStateException, IOException {
         Iterator<String> fileNames = multipartHttpServletRequest.getFileNames();
-        // 이거 왜 상대경로 이렇게 된건지 질문
         String relativePath = "C:\\Develops\\toy_springboots\\src\\main\\resources\\static\\files\\";
 
         String physicalFileName = getUniqueSequence();
-        // file.separator가 왜 OS마다 다르게 적용되어야 하는지 질문. VS의 기능?
         String savePath = relativePath + physicalFileName + File.separator;
         File newPath = new File(savePath);
         newPath.mkdir();
@@ -59,7 +57,6 @@ public class AddUUID {
 
         params.put("attachFiles", attachFiles);
 
-        // service를 2개 만든 이유 질문
         return params;
     }
 

@@ -40,6 +40,17 @@ public class UserDataController {
         return modelAndView;
     }
 
+    @RequestMapping(value = { "/listPagination/{currentPage}" }, method = RequestMethod.GET)
+    public ModelAndView listPagination(@RequestParam Map<String, Object> params, @PathVariable String currentPage,
+            ModelAndView modelAndView) {
+        params.put("currentPage", Integer.parseInt(currentPage)); // 현재 페이지 번호
+        params.put("pageScale", 10); // 페이지당 게시물 수
+        Object resultMap = userDataService.getListWithPagination(params);
+        modelAndView.addObject("resultMap", resultMap);
+        modelAndView.setViewName("/list_pagination");
+        return modelAndView;
+    }
+
     @RequestMapping(value = { "/uploadMultiImg" }, method = RequestMethod.POST)
     public ModelAndView uploadMultiImg(MultipartHttpServletRequest multipartHttpServletRequest,
             @RequestParam Map<String, Object> params, ModelAndView modelAndView)
