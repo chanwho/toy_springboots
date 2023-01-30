@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.toy.toy_springboots.dao.UserDataDao;
 import com.toy.toy_springboots.utils.Paginations;
-import com.toy.toy_springboots.utils.pagination;
 
 @Service
 public class UserDataService {
