@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="UserCRUD">
 
     <!-- call UserCRUD.selectListByUID -->
@@ -46,14 +47,14 @@
 
     <!-- call UserCRUD.deleteByUSER_UID -->
     <delete id="deleteByUSER_UID" parameterType="Map">
-        DELETE FROM userdata 
+        DELETE FROM USERDATA 
         WHERE USER_UID = #{USER_UID}
     </delete>
 
 
     <!-- call UserCRUD.createUSERDATA -->
     <insert id="createUSERDATA" parameterType ="Map">
-        insert into userdata (USER_UID, NAME, ID, PASSWORD, PHONE_NUMBER, BIRTHDAY, EMAIL, SMS_AD, EMAIL_AD)
+        INSERT INTO userdata (USER_UID, NAME, ID, PASSWORD, PHONE_NUMBER, BIRTHDAY, EMAIL, SMS_AD, EMAIL_AD)
         VALUE (#{USER_UID},#{NAME},#{ID},#{PASSWORD},#{PHONE_NUMBER},#{BIRTHDAY},#{EMAIL}
         <choose>
         <when test="SMS_AD != null">
@@ -81,10 +82,10 @@
 
     <!-- call UserCRUD.attachInsertMulti -->
     <insert id="attachInsertMulti" parameterType="Map">
-        insert into CIP_ATTACHFILE
+        INSERT INTO CIP_ATTACHFILE
         (ATTACHFILE_SEQ, SOURCE_UNIQUE_SEQ, ORGINALFILE_NAME, PHYSICALFILE_NAME
         , REGISTER_SEQ, REGISTRY_DATE, MODIFIER_SEQ, MODIFY_DATE)
-        values
+        VALUES
         <!-- ('2023.01.2612505201', 'TEMP_29', 'cast.txt', '20230126_112456'
         ,'UUID-1111-1111111',sysdate(),'UUID-1111-1111111',sysdate()),('2023.01.2612505202', 'TEMP_29', 'cast01.txt', '20230126_112456'
         ,'UUID-1111-1111111',sysdate(),'UUID-1111-1111111',sysdate())     -->
