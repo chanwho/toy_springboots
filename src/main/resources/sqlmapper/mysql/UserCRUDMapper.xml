@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- commit error -->
+
 <mapper namespace="UserCRUD">
 
     <!-- call UserCRUD.selectListByUID -->
@@ -12,7 +12,7 @@
     where ORDER_NUMBER >  0
     ]]>
     <if test="pageScale != null">
-        order by USER_UID
+        ORDER BY USER_UID
         <!-- 첫번째 리스트 -->
         LIMIT #{pageBegin}, #{pageScale}
     </if>
@@ -21,7 +21,7 @@
     <!-- call UserCRUD.selectTotal -->
     <select id="selectTotal" 
         parameterType="Map" resultType="int">
-        SELECT COUNT(*) FROM userdata;
+        SELECT COUNT(*) FROM USERDATA;
     </select>
 
     <!-- call UserCRUD.selectFromUSERDATA -->
