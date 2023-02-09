@@ -1,5 +1,7 @@
 package com.toy.toy_springboots.utils;
 
+import org.springframework.stereotype.Component;
+
 // commit
 public class Paginations {
     private int pageScale = 10; // 페이지당 게시물 수

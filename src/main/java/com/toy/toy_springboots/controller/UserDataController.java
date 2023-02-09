@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,24 @@ public class UserDataController {
     @RequestMapping(value = { "/", "", "/list" }, method = RequestMethod.GET)
     public ModelAndView list(@RequestParam Map<String, Object> params, ModelAndView modelAndView) {
         Object resultMap = userDataService.getlist(params);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            String password = ((UserDetails) principal).getPassword();
+            Boolean isAccountNonExpired = ((UserDetails) principal).isAccountNonExpired();
+            Boolean isAccountNonLocked = ((UserDetails) principal).isAccountNonLocked();
+            Boolean isCredentialsNonExpired = ((UserDetails) principal).isCredentialsNonExpired();
+
+            System.out.println(username);
+            System.out.println(password);
+            System.out.println(isAccountNonExpired);
+            System.out.println(isAccountNonLocked);
+            System.out.println(isCredentialsNonExpired);
+        } else {
+            String username = principal.toString();
+        }
 
         modelAndView.addObject("resultMap", resultMap);
         modelAndView.setViewName("/list");
